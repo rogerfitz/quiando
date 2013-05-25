@@ -4,7 +4,7 @@ import json
 from pprint import pprint
 
 # Fill in these values
-consumer_key = 'get'
+consumer_key = 'Get'
 consumer_secret = 'your'
 token = 'own'
 token_secret = 'key :)'
