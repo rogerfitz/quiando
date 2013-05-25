@@ -4,10 +4,10 @@ import json
 from pprint import pprint
 
 # Fill in these values
-consumer_key = 'JCEsAjocnNw5DuWnMjb7Qg'
-consumer_secret = 'QZcDKySg6vI7PIOWSZ4lMjPX4xs'
-token = 'bTl1C6QSUR_xiv5ta5mrVmFnhrJgBVR_'
-token_secret = 'PNMwUOqJ_1R1fT0XG3mAx9E5I5Q'
+consumer_key = 'Get'
+consumer_secret = 'your'
+token = 'own'
+token_secret = 'key :)'
 
 _debug = 0
 
