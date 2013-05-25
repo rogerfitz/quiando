@@ -1,7 +1,7 @@
 <?php
 
 //STEP 1 Connect To Database
-$connect = mysql_connect("mysql.quiando.com","asktheoracle","5|_|nburns");
+$connect = mysql_connect("mysql.quiando.com","","");
 if (!$connect)
 {
 die("MySQL could not connect!");
