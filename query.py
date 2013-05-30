@@ -6,10 +6,10 @@ import MySQLdb as mdb
 import sys
 
 # Fill in these values
-consumer_key = 'JCEsAjocnNw5DuWnMjb7Qg'
-consumer_secret = 'QZcDKySg6vI7PIOWSZ4lMjPX4xs'
-token = 'kNeZIA_UMXQBgmqpMd7pqDNryx8vChe5'
-token_secret = 'hxfU2n2faIxMpC8f7ks5HvCxrpg'
+consumer_key = 'get'
+consumer_secret = 'your'
+token = 'own'
+token_secret = 'key'
 
 _debug = 0
 
