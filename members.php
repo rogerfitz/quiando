@@ -1,7 +1,7 @@
 <?php
 
 //STEP 1 Connect To Database
-$connect = mysql_connect("mysql.quiando.com","","");
+$connect = mysql_connect("quiando.com","quia","Q|_|!ando");
 if (!$connect)
 {
 die("MySQL could not connect!");
@@ -18,8 +18,7 @@ die("MySQL could not select Database!");
 
 $Name = $_POST['email'];
 $Pass = $_POST['password'];
-$Query = mysql_query("SELECT * FROM users WHERE email='$Name' AND password='$Pass'");
-$NumRows = mysql_num_rows($Query);
+$NumRows = mysql_query("SELECT COUNT(*) FROM users WHERE email='$Name' AND password='$Pass'");
 $_SESSION['email'] = $Name;
 $_SESSION['password'] = $Pass;
 
@@ -27,7 +26,7 @@ $_SESSION['password'] = $Pass;
 
 if(empty($_SESSION['email']) || empty($_SESSION['password']))
 {
-header ("Location: login1.html");
+load(something with error);
 }
 
 if($Name && $Pass == "")
@@ -45,27 +44,3 @@ if($Pass == "")
 header ("Location: login1.html");
 }
 
-//STEP 4 Check Username And Password With The MySQL Database
-
-if($NumRows != 0)
-{
-while($Row = mysql_fetch_assoc($Query))
-{
-$Database_Name = $Row['email'];
-$Database_Pass = $Row['password'];
-}
-}
-else
-{
-header ("Location: login1.html");
-exit();
-}
-
-if($Name == $Database_Name && $Pass == $Database_Pass)
-{
-// If The User Makes It Here Then That Means He Logged In Successfully
-header ("Location: http://quiando.com/main.html");
-exit();
-}
-
-?>

@@ -2,12 +2,14 @@ import oauth2 as oauth
 import urllib2 as urllib
 import json
 from pprint import pprint
+import MySQLdb as mdb
+import sys
 
 # Fill in these values
-consumer_key = 'Get'
-consumer_secret = 'your'
-token = 'own'
-token_secret = 'key :)'
+consumer_key = 'JCEsAjocnNw5DuWnMjb7Qg'
+consumer_secret = 'QZcDKySg6vI7PIOWSZ4lMjPX4xs'
+token = 'kNeZIA_UMXQBgmqpMd7pqDNryx8vChe5'
+token_secret = 'hxfU2n2faIxMpC8f7ks5HvCxrpg'
 
 _debug = 0
 
@@ -26,9 +28,9 @@ https_handler = urllib.HTTPSHandler(debuglevel=_debug)
 Construct, sign, and open a twitter request
 using the hard-coded credentials above.
 '''
-def yelpreq(url, method, terms, location):
+def yelpreq(url, method, terms, ll):
   consumer = oauth.Consumer(consumer_key, consumer_secret)
-  req = oauth.Request('GET', url+"?term="+terms+"&location="+location)
+  req = oauth.Request('GET', url+"?term="+terms+"&ll="+ll)
   req.update({'oauth_nonce': oauth.generate_nonce(),
                       'oauth_timestamp': oauth.generate_timestamp(),
                       'oauth_token': token,
@@ -56,15 +58,40 @@ def yelpreq(url, method, terms, location):
 
   return response
 
-def fetchsamples():
-  terms ="food"
-  location="Burr+Ridge"
-  response= yelpreq("http://api.yelp.com/v2/search", "GET", terms, location)
+def proc_samples(terms, location):
+	terms ="food"
+	location="Burr+Ridge"
+	response= yelpreq("http://api.yelp.com/v2/search", "GET", terms, location)
   
+	try:
+		con = mdb.connect('www.quiando.com', 'quia', 'Q|_|!ando', 'quiando');
 
-  data = json.load(response)
-  for i in range(len(data['businesses'])):
-  	print data['businesses'][i]['id']
+		with con:
+			data = json.load(response)
+			for i in range(len(data['businesses'])):
+				restid=data['businesses'][i]['id']
+				name=data['businesses'][i]['name']
+				rating=data['businesses'][i]['rating']
+				rating=rating*2
+				rating2=int(rating)
+				print type(rating2)
+				
+				cur = con.cursor()
+				cur.execute("INSERT INTO restaurants (restid, name, rating) VALUES (%s, %s, %s)", (restid, name, rating2))
+				#print "restid "+str(restid)+" name "+ str(name) + " rating "+str(rating)
+		
+	except mdb.Error, e:
+	  
+		 print "Error %d: %s" % (e.args[0],e.args[1])
+		 sys.exit(1)
+		
+	finally:    
+			
+		if con:    
+			con.close()
+
+
+		
 
 
   #businesses=[]
@@ -73,4 +100,8 @@ def fetchsamples():
   #print len(businesses)
 
 if __name__ == '__main__':
-  fetchsamples()
+  terms =sys.argv[1]
+  ll=sys.argv[2]
+  data=json.load(yelpreq("http://api.yelp.com/v2/search", "GET", terms, ll))
+  print json.dumps(data)
+  #proc_samples(terms, location)

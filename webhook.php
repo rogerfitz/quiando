@@ -2,8 +2,8 @@
  
 // Use in the "Post-Receive URLs" section of your GitHub repo.
  
-if ( $_POST['payload'] ) {
-  shell_exec( 'q.sh' );
+{
+  shell_exec( 'sh /var/www/q.sh' );
 }
  
 ?>This is sneaky page
