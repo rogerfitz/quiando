@@ -5,7 +5,7 @@ import MySQLdb as mdb
 import sys
 
 try:
-    con = mdb.connect('www.quiando.com', 'quia', 'Q|_|!ando', 'quiando');
+    con = mdb.connect('', '', '', '');
 
 	with con:
     		cur = con.cursor()
